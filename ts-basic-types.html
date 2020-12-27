@@ -5,6 +5,51 @@
 	<title>노재원의 블로그</title>
 </head>
 <body>
-<h1>기본 타입</h1>
+	<h1>기본 타입</h1>
+	<p>Typescript 문법을 익히기 위한 스터디를 시작합니다.</p>
+	<p>효과적으로 이해하기 위한 방법의 일환으로 원본 코드와 transpile이후의 코드를 비교해 봅니다.</p>
+	<h2>Before</h2>
+	<pre>
+		const BOOLEAN_TYPE: boolean = true;
+		const NUMBER_TYPE: number = 1;
+		const STRING_TYPE: string = 'Noh';
+		const OBJECT_TYPE: object = { a: 1, b: 1};
+		const ARRAY_TYPE: Array&lt;number&gt; = [1, 2, 3];
+		const ARRAY_TYPE2: Array&lt;object&gt; = [OBJECT_TYPE, OBJECT_TYPE];
+		const TUPLE: [number, object] = [1, OBJECT_TYPE];
+		enum CUSTOM_POLICY {
+			JW = 'JW',
+			YD = 'YD'
+		}
+		const cpJw = CUSTOM_POLICY.JW;
+		const cpYd = CUSTOM_POLICY.YD;
+		const ANY: any = 1;
+		const UNDEFINED: undefined = undefined;
+		const NULL: null = null;
+		const TYPE_ASSERTION: string = (ANY as number).toFixed(1);
+	</pre>
+	<h2>After</h2>
+	<pre>
+		const BOOLEAN_TYPE = true;
+    const NUMBER_TYPE = 1;
+    const STRING_TYPE = 'Noh';
+    const OBJECT_TYPE = { a: 1, b: 1 };
+    const ARRAY_TYPE = [1, 2, 3];
+    const ARRAY_TYPE2 = [OBJECT_TYPE, OBJECT_TYPE];
+    const TUPLE = [1, OBJECT_TYPE];
+    let CUSTOM_POLICY;
+    (function (CUSTOM_POLICY) {
+        CUSTOM_POLICY["JW"] = "JW";
+        CUSTOM_POLICY["YD"] = "YD";
+    })(CUSTOM_POLICY || (CUSTOM_POLICY = {}));
+    const cpJw = CUSTOM_POLICY.JW;
+    const cpYd = CUSTOM_POLICY.YD;
+    const ANY = 1;
+    const UNDEFINED = undefined;
+    const NULL = null;
+    const TYPE_ASSERTION = ANY.toFixed(1);
+	</pre>
+	<p>데이터 타입을 transpile하는 과정에서 크게 특별한건 없으나, enum이 변수(Object)와 값을 넣는 즉시 실행 함수로 구현 되었음을 알 수 있습니다.</p>
+	<p>이외에 특이한 부분은 없습니다. void, never등의 타입은 return값이 없는 함수, 에러클래스를 구현하는 쪽에서 사용할 수 있을 것 같습니다.</p>
 </body>
 </html>
