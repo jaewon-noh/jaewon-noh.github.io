@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e65221c3-ed14-46cd-b4f6-09d375294277" name="디폴트 변경 목록" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ts-basic-types.html" beforeDir="false" afterPath="$PROJECT_DIR$/ts-basic-types.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ts-testbed/src/routes/basic-types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ts-testbed/src/routes/basic-types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ts-testbed/src/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../ts-testbed/src/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
