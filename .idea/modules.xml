@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/jaewon-noh.github.io.iml" filepath="$PROJECT_DIR$/.idea/jaewon-noh.github.io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ts-testbed/.idea/ts-testbed.iml" filepath="$PROJECT_DIR$/../ts-testbed/.idea/ts-testbed.iml" />
     </modules>
   </component>
 </project>
