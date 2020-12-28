@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>노재원의 블로그</title>
+</head>
+<body>
+<h1>함수</h1>
+	<h2>Before</h2>
+	<pre>
+const test = (x: number, y: number): number => { // 리턴 타입까지 명시 해본다.
+	return x + y;
+};
+const test2 = (x: number, y: number) => { // 리턴 타입을 명시하지 않는다.
+	return x + y;
+};
+const test3: (baseValue: number, increment: number) => number = (x: number, y: number): number => { return x + y; };
+
+const test4: (baseValue: number, increment: number) => number = (x, y) => { return x + y; };
+// const test4 = (x: number, y: number): number => { return x + y; }; // 이게 타이핑 상으로는 더 짧은데....
+
+const test5 = (x: number, y?: number) => {
+	if (y) {
+		return x + y;
+	} else {
+		return x;
+	}
+};
+
+const test6 = (x: number, y: string = '22'): string => {
+	return x + y;
+};
+
+const test7 = (a: number, ...args: any[]): Array&lt;any&gt; => {
+	return [a, ...args];
+};
+
+function test8(a: number): number;
+function test8(a: string): string;
+function test8(a: any): any {
+	if (typeof a === 'number') {
+		return 1;
+	} else if (typeof a === 'string') {
+		return {};
+	}
+}
+
+test(1, 2); // 3
+test2(1, 2); // 3
+test3(1, 2); // 3
+test4(1, 2); // 3
+test5(1, 2); // 3
+test5(1); // 1
+test6(1, '33'); // 133
+test6(1); // 122
+test7(1, '22', [33], {a: 1}, undefined, null, false); // [1, "22", [ 33 ], { "a": 1 }, null, null, false ] undefined가 null이 되었다?
+test8(1); // 1
+test8('11'); // {}
+	</pre>
+	<h2>After</h2>
+	<pre>
+const test = (x, y) => {
+		return x + y;
+};
+const test2 = (x, y) => {
+		return x + y;
+};
+const test3 = (x, y) => { return x + y; };
+const test4 = (x, y) => { return x + y; };
+// const test4 = (x: number, y: number): number => { return x + y; }; // 이게 타이핑 상으로는 더 짧은데....
+const test5 = (x, y) => {
+		if (y) {
+				return x + y;
+		}
+		else {
+				return x;
+		}
+};
+const test6 = (x, y = '22') => {
+		return x + y;
+};
+const test7 = (a, ...args) => {
+		return [a, ...args];
+};
+function test8(a) {
+		if (typeof a === 'number') {
+				return 1;
+		}
+		else if (typeof a === 'string') {
+				return {};
+		}
+}
+test(1, 2); // 3
+test2(1, 2); // 3
+test3(1, 2); // 3
+test4(1, 2); // 3
+test5(1, 2); // 3
+test5(1); // 1
+test6(1, '33'); // 133
+test6(1); // 122
+test7(1, '22', [33], {a: 1}, undefined, null, false); // [1, "22", [ 33 ], { "a": 1 }, null, null, false ] undefined가 null이 되었다?
+test8(1); // 1
+test8('11'); // {}
+	</pre>
+	<p>transpile전 후가 크게 다르지 않음.</p>
+	<p>함수에 대한 타입 설정이 아직까지는 필요한지 잘 모르겠음... 동어 반복으로 보임. 타입 선언을 해두면 함수 선언부에서 타입 생략을 해도 되지만 그 역시 타이핑 총량으로 따지면... 함수쪽에 직접 정의하는게 적음</p>
+	<p>this 사용을 위해 매개변수 쪽에 this의 타입으로 interface를 설정하거나 class type을 지정한다던가 하는 방법과 arrow function을 사용하는 방법이 있음.</p>
+	<p>실 사용 전에는 arrow function이 편해보이나..</p>
+	<p>method changing이 가능한 무언가를 구현한다고 하였을 때 리턴되는 this가 정확히 무엇을 의미하는지 지정해두고 사용하면 좋을 듯 보임.</p>
+	<p>overloads 의 용도 및 의미를 잘 모르겠음 유니언 타입이나 any로 해결되는 부분이 아닌가 싶지만... 더 확인해볼 필요 있음...</p>
+</body>
+</html>
