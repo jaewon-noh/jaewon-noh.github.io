@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>노재원의 블로그</title>
+</head>
+<body>
+<h1>네임스페이스</h1>
+<h2>Before</h2>
+<pre>
+namespace TYPES {
+	export interface YDI {
+		name: string
+		game: string
+		study: boolean
+	}
+	export type AGE = string | number | undefined;
+	export enum SCHOOL {
+		ELEM = 'ELEM',
+		MID = 'MID',
+		HIGH = 'HIGH',
+	}
+}
+export namespace YD { // namespace는 module레벨에서만 선언이 가능하다. 함수 내부에서는 불가능.
+	export const name = 'yd';
+
+	export enum YDSCHOOL {
+		ELEM = TYPES.SCHOOL.ELEM,
+		MID = TYPES.SCHOOL.MID,
+		HIGH = TYPES.SCHOOL.HIGH
+	}
+
+	export type YDAGE = Exclude&lt;TYPES.AGE, undefined&gt;
+
+	export type YDIT = Omit&lt;TYPES.YDI, 'game'&gt;
+
+	export class YDC {
+		name: string = 'yd';
+		constructor() {}
+	}
+
+	export function phone(): string {
+		return 'Galaxy';
+	}
+
+	export function testDecorator() {
+		return function (
+			target: any,
+			propertyKey: string,
+			descriptor: PropertyDescriptor
+		) {
+			console.log("testDecorator");
+		};
+	}
+}
+
+console.info(YD.name);
+const ydObj: YD.YDIT = {
+	name: 'yd',
+	study: true
+}
+console.info(ydObj);
+const ydClass: YD.YDC = new YD.YDC();
+console.info(ydClass.name);
+const ydAge: YD.YDAGE = 24;
+// const ydAge: YD.AGE = '24';
+// const ydAge: YD.AGE = undefined;
+console.info(ydAge);
+const ydGraduate: YD.YDSCHOOL = YD.YDSCHOOL.HIGH;
+console.info(ydGraduate);
+const ydPhone: string = YD.phone();
+console.info(ydPhone);
+
+class testYD {
+	constructor() {}
+
+	@YD.testDecorator()
+	test(): string {
+		return 'test';
+	}
+}
+const testYDI = new testYD();
+console.info(testYDI.test());
+	</pre>
+<h2>After</h2>
+<pre>
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TYPES = void 0;
+var TYPES;
+(function (TYPES) {
+	let SCHOOL;
+	(function (SCHOOL) {
+		SCHOOL["ELEM"] = "ELEM";
+		SCHOOL["MID"] = "MID";
+		SCHOOL["HIGH"] = "HIGH";
+	})(SCHOOL = TYPES.SCHOOL || (TYPES.SCHOOL = {}));
+})(TYPES = exports.TYPES || (exports.TYPES = {}));
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.YD = void 0;
+const types_1 = require("./types");
+var YD;
+(function (YD) {
+	YD.name = 'yd';
+	let YDSCHOOL;
+	(function (YDSCHOOL) {
+			YDSCHOOL["ELEM"] = "ELEM";
+			YDSCHOOL["MID"] = "MID";
+			YDSCHOOL["HIGH"] = "HIGH";
+	})(YDSCHOOL = YD.YDSCHOOL || (YD.YDSCHOOL = {}));
+	class YDC {
+			constructor() {
+					this.name = 'yd';
+			}
+	}
+	YD.YDC = YDC;
+	function phone() {
+			return 'Galaxy';
+	}
+	YD.phone = phone;
+	function testDecorator() {
+			return function (target, propertyKey, descriptor) {
+					console.log("testDecorator");
+			};
+	}
+	YD.testDecorator = testDecorator;
+})(YD = exports.YD || (exports.YD = {}));
+
+console.info(functions_1.YD.name);
+const ydObj = {
+		name: 'yd',
+		study: true
+};
+console.info(ydObj);
+const ydClass = new functions_1.YD.YDC();
+console.info(ydClass.name);
+const ydAge = 24;
+// const ydAge: YD.AGE = '24';
+// const ydAge: YD.AGE = undefined;
+console.info(ydAge);
+const ydGraduate = functions_1.YD.YDSCHOOL.HIGH;
+console.info(ydGraduate);
+const ydPhone = functions_1.YD.phone();
+console.info(ydPhone);
+class testYD {
+		constructor() { }
+		test() {
+				return 'test';
+		}
+}
+__decorate([
+		functions_1.YD.testDecorator()
+], testYD.prototype, "test", null);
+const testYDI = new testYD();
+console.info(testYDI.test());
+	</pre>
+<p>네임스페이스는 말 그대로 하나의 모듈(object)내부에 내용을 정의함으로써 독자적인 스코프를 지닌다.</p>
+
+</body>
+</html>
