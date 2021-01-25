@@ -8,19 +8,21 @@
 	<h1>로또 번호 생성기</h1>
 	<label for="Count">개수 선택</label>
 	<select id="Count">
+		<option value="0" selected>개수를 선택하시오</option>
 		<option value="1">1개</option>
 		<option value="2">2개</option>
 		<option value="3">3개</option>
 		<option value="4">4개</option>
-		<option value="5" selected>5개</option>
+		<option value="5">5개</option>
 	</select>
 	<p class="result"></p>
 	<script type="text/javascript">
-		const COUNT = Number(document.querySelector('#Count').value);
+		const COUNT_DOM = document.querySelector('#Count');
 		const ResultView = document.querySelector('.result');
 		const RANGE_MAX = 45;
 		const RESULT_MAX = 6;
 		const arr = [];
+
 		const setRandomNumber = (arr) => {
 			const randomNumber = Math.ceil(Math.random() * 45);
 			const isDuplicated = arr.some((val) => val === randomNumber);
@@ -31,19 +33,25 @@
 			}
 			return arr;
 		}
-		
-		while (arr.length !== RANGE_MAX) {
-			arr.push(arr.length + 1);
+
+		const getLottoNumbers = (count) => {
+			while (arr.length !== RANGE_MAX) {
+				arr.push(arr.length + 1);
+			}
+
+			for (let i = 0; i < count; i++) {
+				const rowResult = [];
+				for (let j = 0; j < RESULT_MAX; j++) {
+					setRandomNumber(rowResult);
+				}
+				ResultView.innerHTML += rowResult.sort((a,b) => a - b).join(',');
+				ResultView.innerHTML += "<br>"
+			}
 		}
 
-		for (let i = 0; i < COUNT; i++) {
-			const rowResult = [];
-			for (let j = 0; j < RESULT_MAX; j++) {
-				setRandomNumber(rowResult);
-			}
-			ResultView.innerHTML += rowResult.sort((a,b) => a - b).join(',');
-			ResultView.innerHTML += "<br>"
-		}
+		COUNT_DOM.addEventListener('change', function() {
+			getLottoNumbers(this.value);
+		});
 	</script>
 </body>
 </html>
